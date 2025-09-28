@@ -23,8 +23,8 @@ import cz.ivosahlik.ecommerce.service.CartService;
 import cz.ivosahlik.ecommerce.service.OrderService;
 import cz.ivosahlik.ecommerce.util.AuthUtil;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,38 +36,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
-    @Autowired
-    OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
-    @Autowired
-    OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
-    @Autowired
-    CartService cartService;
+    private final CartService cartService;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    AuthUtil authUtil;
+    private final AuthUtil authUtil;
 
     @Override
     @Transactional
-    public OrderDTO placeOrder(String emailId, Long addressId, String paymentMethod, String pgName, String pgPaymentId, String pgStatus, String pgResponseMessage) {
+    public OrderDTO placeOrder(String emailId,
+                               Long addressId,
+                               String paymentMethod,
+                               String pgName,
+                               String pgPaymentId,
+                               String pgStatus,
+                               String pgResponseMessage) {
         Cart cart = cartRepository.findCartByEmail(emailId);
         if (cart == null) {
             throw new ResourceNotFoundException("Cart", "email", emailId);
@@ -141,6 +139,10 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDTO> orderDTOs = orders.stream()
                 .map(order -> modelMapper.map(order, OrderDTO.class))
                 .toList();
+        return getOrderResponse(orderDTOs, pageOrders);
+    }
+
+    private static OrderResponse getOrderResponse(List<OrderDTO> orderDTOs, Page<Order> pageOrders) {
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setContent(orderDTOs);
         orderResponse.setPageNumber(pageOrders.getNumber());
@@ -186,14 +188,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDTO> orderDTOs = sellerOrders.stream()
                 .map(order -> modelMapper.map(order, OrderDTO.class))
                 .toList();
-        OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setContent(orderDTOs);
-        orderResponse.setPageNumber(pageOrders.getNumber());
-        orderResponse.setPageSize(pageOrders.getSize());
-        orderResponse.setTotalElements(pageOrders.getTotalElements());
-        orderResponse.setTotalPages(pageOrders.getTotalPages());
-        orderResponse.setLastPage(pageOrders.isLast());
-        return orderResponse;
+        return getOrderResponse(orderDTOs, pageOrders);
     }
 
 

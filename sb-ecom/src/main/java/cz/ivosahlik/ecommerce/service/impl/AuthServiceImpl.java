@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
@@ -91,22 +92,21 @@ public class AuthServiceImpl implements AuthService {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "admin" -> {
                         Role adminRole = roleRepository.findByRoleName(AppRole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
-                        break;
-                    case "seller":
+                    }
+                    case "seller" -> {
                         Role modRole = roleRepository.findByRoleName(AppRole.ROLE_SELLER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-
-                        break;
-                    default:
+                    }
+                    default -> {
                         Role userRole = roleRepository.findByRoleName(AppRole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                    }
                 }
             });
         }
@@ -121,13 +121,11 @@ public class AuthServiceImpl implements AuthService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+                .map(GrantedAuthority::getAuthority)
+                .toList();
 
-        UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
+        return new UserInfoResponse(userDetails.getId(),
                 userDetails.getUsername(), roles);
-
-        return response;
     }
 
     @Override
@@ -141,8 +139,12 @@ public class AuthServiceImpl implements AuthService {
         List<UserDTO> userDtos = allUsers.getContent()
                 .stream()
                 .map(p -> modelMapper.map(p, UserDTO.class))
-                .collect(Collectors.toList());
+                .toList();
 
+        return getUserResponse(userDtos, allUsers);
+    }
+
+    private static UserResponse getUserResponse(List<UserDTO> userDtos, Page<User> allUsers) {
         UserResponse response = new UserResponse();
         response.setContent(userDtos);
         response.setPageNumber(allUsers.getNumber());
