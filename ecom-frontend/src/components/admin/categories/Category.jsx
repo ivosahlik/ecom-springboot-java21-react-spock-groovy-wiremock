@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
-import { FaFolderOpen, FaThList } from "react-icons/fa";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {DataGrid} from "@mui/x-data-grid";
+import {FaFolderOpen, FaThList} from "react-icons/fa";
 import toast from "react-hot-toast";
 
 import Modal from "../../shared/Modal";
 import AddCategoryForm from "./AddCategoryForm";
 import Loader from "../../shared/Loader";
-import { DeleteModal } from "../../../components/shared/DeleteModal";
+import {DeleteModal} from "../../../components/shared/DeleteModal";
 import useCategoryFilter from "../../../hooks/useCategoryFilter";
 import ErrorPage from "../../shared/ErrorPage";
-import { deleteCategoryDashboardAction } from "../../../store/actions";
-import { categoryTableColumns } from "../../helper/tableColumn";
+import {deleteCategoryDashboardAction} from "../../../store/actions";
+import {categoryTableColumns} from "../../helper/tableColumn";
 
 const Category = () => {
   const [searchParams] = useSearchParams();

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import React, {useEffect} from "react";
+import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
 import toast from "react-hot-toast";
 
 import {
@@ -17,7 +17,7 @@ const AddCategoryForm = ({ setOpen, open, category, update = false }) => {
     handleSubmit,
     reset,
     setValue,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     mode: "onTouched",
   });
