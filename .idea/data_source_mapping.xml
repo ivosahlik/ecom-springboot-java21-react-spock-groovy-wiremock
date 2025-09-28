@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console_1.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console_2.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console_3.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console_4.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac/console_5.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+    <file url="file://$PROJECT_DIR$/postgres/init.sql" value="bb8c2ff6-e4c3-4a57-b0b8-2639acf0b9ac" />
+  </component>
+</project>
