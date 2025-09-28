@@ -54,29 +54,25 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Category", "categoryId", categoryId));
 
-        boolean isProductNotPresent = true;
+        boolean isProductNotPresent;
 
         List<Product> products = category.getProducts();
-        for (Product value : products) {
-            if (value.getProductName().equals(productDTO.getProductName())) {
-                isProductNotPresent = false;
-                break;
-            }
-        }
+        isProductNotPresent = products.stream()
+                .noneMatch(value -> value.getProductName().equals(productDTO.getProductName()));
 
-        if (isProductNotPresent) {
-            Product product = modelMapper.map(productDTO, Product.class);
-            product.setImage("default.png");
-            product.setCategory(category);
-            product.setUser(authUtil.loggedInUser());
-            double specialPrice = product.getPrice() -
-                    ((product.getDiscount() * 0.01) * product.getPrice());
-            product.setSpecialPrice(specialPrice);
-            Product savedProduct = productRepository.save(product);
-            return modelMapper.map(savedProduct, ProductDTO.class);
-        } else {
+        if (!isProductNotPresent) {
             throw new APIException("Product already exist!!");
         }
+        Product product = modelMapper.map(productDTO, Product.class);
+        product.setImage("default.png");
+        product.setCategory(category);
+        product.setUser(authUtil.loggedInUser());
+        double specialPrice = product.getPrice() -
+                ((product.getDiscount() * 0.01) * product.getPrice());
+        product.setSpecialPrice(specialPrice);
+        Product savedProduct = productRepository.save(product);
+        return modelMapper.map(savedProduct, ProductDTO.class);
+
     }
 
     @Override
