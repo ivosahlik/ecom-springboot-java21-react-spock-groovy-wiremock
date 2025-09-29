@@ -26,8 +26,8 @@ const Category = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const { categoryLoader, errorMessage } = useSelector((state) => state.errors);
-  const { categories, pagination } = useSelector((state) => state.products);
+  const {categoryLoader, errorMessage} = useSelector((state) => state.errors);
+  const {categories, pagination} = useSelector((state) => state.products);
   const [currentPage, setCurrentPage] = useState(
     pagination?.pageNumber + 1 || 1
   );
@@ -67,7 +67,7 @@ const Category = () => {
 
   const emptyCategories = !categories || categories?.length === 0;
 
-  if (errorMessage) return <ErrorPage message={errorMessage} />;
+  if (errorMessage) return <ErrorPage message={errorMessage}/>;
 
   return (
     <div>
@@ -76,7 +76,7 @@ const Category = () => {
           onClick={() => setOpenModal(true)}
           className="bg-custom-blue hover:bg-blue-800 text-white font-semibold py-2 px-4 flex items-center gap-2 rounded-md shadow-md transition-colors hover:text-slate-300 duration-300"
         >
-          <FaThList className="text-xl" />
+          <FaThList className="text-xl"/>
           Add Category
         </button>
       </div>
@@ -87,12 +87,12 @@ const Category = () => {
       )}
 
       {categoryLoader ? (
-        <Loader />
+        <Loader/>
       ) : (
         <>
           {emptyCategories ? (
             <div className="flex flex-col items-center justify-center text-gray-600 py-10">
-              <FaFolderOpen size={50} className="mb-3" />
+              <FaFolderOpen size={50} className="mb-3"/>
               <h2 className="text-2xl font-semibold">
                 No Categories Created Yet
               </h2>
