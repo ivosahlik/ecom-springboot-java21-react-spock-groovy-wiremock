@@ -10,44 +10,44 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const {isLoading, errorMessage} = useSelector((state) => state.errors);
   const {
-    analytics: { productCount, totalRevenue, totalOrders },
-   } = useSelector((state) => state.admin);
+    analytics: {productCount, totalRevenue, totalOrders},
+  } = useSelector((state) => state.admin);
 
-   useEffect(() => {
+  useEffect(() => {
     dispatch(analyticsAction());
-   }, [dispatch]);
+  }, [dispatch]);
 
-   if (isLoading) {
-    return <Loader />
-   }
+  if (isLoading) {
+    return <Loader/>
+  }
 
-   if (errorMessage) {
+  if (errorMessage) {
     return <ErrorPage message={errorMessage}/>;
-   }
+  }
 
   return (
     <div>
       <div className='flex md:flex-row mt-8 flex-col lg:justify-between
           border border-slate-400 rounded-lg bg-linear-to-r
            from-blue-50 to-blue-100 shadow-lg'>
-            <DashboardOverview
-              title="Total Products"
-              amount={productCount}
-              Icon={FaBoxOpen}
-            />
+        <DashboardOverview
+          title="Total Products"
+          amount={productCount}
+          Icon={FaBoxOpen}
+        />
 
-            <DashboardOverview
-              title="Total Orders"
-              amount={totalOrders}
-              Icon={FaShoppingCart}
-            />
+        <DashboardOverview
+          title="Total Orders"
+          amount={totalOrders}
+          Icon={FaShoppingCart}
+        />
 
-            <DashboardOverview
-              title="Total Revenue"
-              amount={totalRevenue}
-              Icon={FaDollarSign}
-              revenue
-            />
+        <DashboardOverview
+          title="Total Revenue"
+          amount={totalRevenue}
+          Icon={FaDollarSign}
+          revenue
+        />
       </div>
     </div>
   )
