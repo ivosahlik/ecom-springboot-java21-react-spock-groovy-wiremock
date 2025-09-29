@@ -28,7 +28,7 @@ const UserMenu = () => {
     const logOutHandler = () => {
         dispatch(logOutUser(navigate));
       };
-  
+
     return (
       <div className='relative z-30'>
         <div
@@ -48,30 +48,9 @@ const UserMenu = () => {
             sx: {width: 160},
           }}
         >
-
-          <Link to="/profile">
-            <MenuItem className="flex gap-2" 
-                onClick={handleClose}>
-                    <BiUser className='text-xl'/>
-                    <span className='font-bold text-[16px] mt-1'>
-                        {user?.username}
-                    </span>
-            </MenuItem>
-          </Link>
-
-          <Link to="/profile/orders">
-            <MenuItem className="flex gap-2" 
-                onClick={handleClose}>
-                    <FaShoppingCart className='text-xl'/>
-                    <span className='font-semibold'>
-                        Order
-                    </span>
-            </MenuItem>
-          </Link>
-
           { (isAdmin || isSeller) && (
           <Link to={isAdmin ? "/admin" : "/admin/orders"}>
-            <MenuItem className="flex gap-2" 
+            <MenuItem className="flex gap-2"
                 onClick={handleClose}>
                     <FaUserShield className='text-xl'/>
                     <span className='font-semibold'>
@@ -80,7 +59,7 @@ const UserMenu = () => {
             </MenuItem>
           </Link> )}
 
-            <MenuItem className="flex gap-2" 
+            <MenuItem className="flex gap-2"
                 onClick={logOutHandler}>
                     <div className='font-semibold w-full flex gap-2 items-center bg-button-gradient px-4 py-1 text-white rounded-xs'>
                     <IoExitOutline className='text-xl'/>

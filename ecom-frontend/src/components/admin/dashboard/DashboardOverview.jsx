@@ -1,9 +1,9 @@
-import { Icon } from '@mui/material';
+import {Icon} from '@mui/material';
 import React from 'react'
-import { formatRevenue } from '../../../utils/formatPrice';
+import {formatRevenue} from '../../../utils/formatPrice';
 
 const DashboardOverview = ({ title, amount, Icon, revenue = false }) => {
-  
+
   const convertedAmount = revenue ? Number(amount).toFixed(2) : amount;
 
     return (

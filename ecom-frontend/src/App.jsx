@@ -19,6 +19,7 @@ import AdminProducts from './components/admin/products/AdminProducts'
 import Sellers from './components/admin/sellers/Sellers'
 import Category from './components/admin/categories/Category'
 import Orders from './components/admin/orders/Orders'
+import Profile from "./components/admin/profile/Profile.jsx";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
           <Route path='/about' element={ <About />}/>
           <Route path='/contact' element={ <Contact />}/>
           <Route path='/cart' element={ <Cart />}/>
-        
+
           <Route path='/' element={<PrivateRoute />}>
             <Route path='/checkout' element={ <Checkout />}/>
             <Route path='/order-confirm' element={ <PaymentConfirmation />}/>
@@ -49,6 +50,7 @@ function App() {
               <Route path='sellers' element={<Sellers />} />
               <Route path='orders' element={<Orders />} />
               <Route path='categories' element={<Category />} />
+              <Route path='profile' element={<Profile />} />
             </Route>
           </Route>
         </Routes>
