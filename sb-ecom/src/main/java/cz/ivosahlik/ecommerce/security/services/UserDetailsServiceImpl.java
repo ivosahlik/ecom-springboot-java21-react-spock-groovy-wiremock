@@ -1,19 +1,18 @@
 package cz.ivosahlik.ecommerce.security.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.ivosahlik.ecommerce.model.User;
+import cz.ivosahlik.ecommerce.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.ivosahlik.ecommerce.model.User;
-import cz.ivosahlik.ecommerce.repositories.UserRepository;
-
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
