@@ -22,6 +22,8 @@
         <groovy.version>4.0.21</groovy.version>
 
         <testcontainers.version>1.20.1</testcontainers.version>
+        <!-- GraalVM Native Build Tools -->
+        <native-maven-plugin.version>0.10.4</native-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -234,5 +236,62 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>native</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native-maven-plugin.version}</version>
+						<extensions>true</extensions>
+						<executions>
+							<execution>
+								<id>build-native</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<imageName>${project.artifactId}</imageName>
+							<mainClass>cz.ivosahlik.ecommerce.SbEcomApplication</mainClass>
+							<buildArgs>
+								<buildArg>--no-fallback</buildArg>
+								<buildArg>--install-exit-handlers</buildArg>
+								<buildArg>--enable-url-protocols=http,https</buildArg>
+								<buildArg>--report-unsupported-elements-at-runtime</buildArg>
+								<buildArg>--allow-incomplete-classpath</buildArg>
+								<buildArg>-H:+ReportExceptionStackTraces</buildArg>
+								<buildArg>-H:+AddAllCharsets</buildArg>
+								<buildArg>-H:IncludeResources=.*\.properties$</buildArg>
+								<buildArg>-H:IncludeResources=.*\.yml$</buildArg>
+								<buildArg>-H:IncludeResources=.*\.yaml$</buildArg>
+								<buildArg>-H:IncludeResources=.*\.json$</buildArg>
+							</buildArgs>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<classifier>exec</classifier>
+							<image>
+								<env>
+									<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+								</env>
+								<buildpacks>
+									<buildpack>paketobuildpacks/java-native-image</buildpack>
+								</buildpacks>
+							</image>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
