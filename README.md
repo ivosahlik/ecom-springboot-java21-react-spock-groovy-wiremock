@@ -25,3 +25,45 @@ Excellent! All tests are now passing successfully. Let me summarize what I've re
 - JSON response validation works correctly
 
 The Spock tests are now fully functional and compatible with Spring Boot 3.5.3, Java 21, and the latest Groovy 4.x/Spock 2.x versions.
+
+
+
+
+## Summary
+I have successfully created comprehensive tests for the ! Here's what I implemented: `AnalyticsController`
+### - Test Coverage: **AnalyticsControllerSpec.groovy**
+1. **Basic Functionality Test**:
+    - Tests the `GET /api/admin/app/analytics` endpoint
+    - Verifies 200 OK status and correct JSON response structure
+    - Validates all three fields: `productCount`, `totalRevenue`, `totalOrders`
+
+2. **Content Type Validation**:
+    - Ensures the API returns content type `application/json`
+
+3. **Edge Case Testing**:
+    - Tests handling of empty analytics data (zeros)
+    - Verifies the controller handles null/empty scenarios gracefully
+
+4. **Response Field Validation**:
+    - Ensures all required fields are present in the response
+    - Validates that fields are not empty when they shouldn't be
+
+5. **Security Tests**:
+    - Tests with different user roles (ADMIN vs USER)
+    - Tests unauthenticated access scenarios
+    - Includes proper annotations for security testing
+
+### **Key Features**:
+- **Proper Mocking**: Uses for , , and `@MockBean``AnalyticsService``JwtUtils``UserDetailsServiceImpl`
+- **Spring Security Integration**: Uses for role-based testing `@WithMockUser`
+- **Spock Framework**: Written in Groovy using Spock's BDD-style syntax
+- **MockMvc Integration**: Tests the actual HTTP layer with proper request/response validation
+- **JSON Path Validation**: Uses Hamcrest matchers for precise JSON field validation
+
+### **Test Results**:
+- : 6 tests ✅ **AnalyticsControllerSpec**
+- **SampleSpec**: 1 test ✅
+- : 6 tests ✅ **AddressControllerSpec**
+- **Total**: 13 tests passing
+
+The tests follow the same proven pattern as the existing and integrate seamlessly with the Spring Boot testing framework. They provide comprehensive coverage of the analytics endpoint functionality while maintaining good test practices. `AddressControllerSpec`
