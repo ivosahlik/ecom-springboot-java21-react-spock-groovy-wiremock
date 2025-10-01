@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
@@ -27,13 +28,13 @@ class AnalyticsControllerSpec extends Specification {
     @Autowired
     MockMvc mockMvc
 
-    @MockBean
+    @MockitoBean
     AnalyticsService analyticsService
 
-    @MockBean
+    @MockitoBean
     JwtUtils jwtUtils
 
-    @MockBean
+    @MockitoBean
     UserDetailsServiceImpl userDetailsService
 
     @WithMockUser(roles = ["ADMIN"])
